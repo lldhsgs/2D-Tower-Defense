@@ -1,5 +1,5 @@
-#pragma once
-
+#ifndef UTILS_H
+#define UTILS_H
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_mixer.h>
@@ -7,6 +7,8 @@
 #include <string>
 #include <vector>
 
+SDL_Window *gWindow;
+SDL_Renderer *gRenderer;
 class LTexture
 {
 	public:
@@ -91,3 +93,4 @@ class LTimer
 		bool mPaused;
 		bool mStarted;
 };
+#endif

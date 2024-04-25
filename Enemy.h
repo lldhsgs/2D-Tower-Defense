@@ -1,10 +1,11 @@
-#pragma once
+#ifndef ENEMY_H
+#define ENEMY_H
 
-#include <SDL2/SDL.h>
 #include "utils.h"
-#include <stdio.h>
-#include <string>
-#include <vector>
+// #include <SDL2/SDL.h>
+// #include <stdio.h>
+// #include <string>
+// #include <vector>
 
 #define TILE_SIZE 100
 
@@ -23,7 +24,7 @@ class Enemy
         void move();
         bool checkCollision();
         void takeDamage();
-
+        void render(int x,int y,int ID);
 
     private:
         int enemyType; // ID
@@ -32,5 +33,6 @@ class Enemy
         int HP;
         int armor;
 
-        LTexture* enemyTexture;
+        LTexture enemyTexture;
 };
+#endif

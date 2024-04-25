@@ -1,3 +1,5 @@
+#ifndef UTILS_CPP
+#define UTILS_CPP
 #include "utils.h"
 #include <iostream>
 #include <sstream>
@@ -276,3 +278,4 @@ bool LTimer::isPaused()
 	//Timer is running and paused
     return mPaused && mStarted;
 }
+#endif

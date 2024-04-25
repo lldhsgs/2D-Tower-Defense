@@ -1,4 +1,5 @@
-#pragma once
+#ifndef BULLET_H
+#define BULLET_H
 
 #include <SDL2/SDL.h>
 #include "utils.h"
@@ -32,3 +33,4 @@ class Bullet
         SDL_Point coordinates;
         LTexture* bulletTexture;
 };
+#endif

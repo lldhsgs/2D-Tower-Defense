@@ -1,13 +1,9 @@
-#include "utils.h"
 #include "constants.h"
-#include <stdio.h>
-#include <string>
-#include <vector>
-
-SDL_Window *gWindow;
-SDL_Renderer *gRenderer;
-
-LTexture gBackgroundTexture;
+#include "Enemy.h"
+#include "utils.h"
+#include "utils.cpp"
+#include "Enemy.cpp"
+LTexture gBackgroundTexture,gTowerTexture;
 bool init()
 {
 	//Initialization flag
@@ -28,7 +24,7 @@ bool init()
 		}
 
 		//Create window
-		gWindow = SDL_CreateWindow( "SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
+		gWindow = SDL_CreateWindow( WINDOW_TITLE, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
 		if( gWindow == NULL )
 		{
 			printf( "Window could not be created! SDL Error: %s\n", SDL_GetError() );
@@ -67,12 +63,15 @@ bool loadMedia()
 	bool success = true;
 
 	//Load sprites
-	if( !gBackgroundTexture.loadFromFile(gRenderer,"Picture/background.png" ) )
+	if( !gBackgroundTexture.loadFromFile(gRenderer,"Picture/background.png") )
 	{
 		printf( "Failed to load background!\n" );
 		success = false;
 	}
-
+	if (!gTowerTexture.loadFromFile(gRenderer,"Picture/laser_cannon.png")){
+		printf("Failed to load tower\n");
+		success = false;
+	}
 	return success;
 }
 
@@ -80,7 +79,7 @@ void close()
 {
 	//Free loaded images
 	gBackgroundTexture.free();
-
+	gTowerTexture.free();
 	//Destroy window	
 	SDL_DestroyRenderer( gRenderer );
 	SDL_DestroyWindow( gWindow );
@@ -92,7 +91,7 @@ void close()
 	SDL_Quit();
 }
 
-int main(int argc,char* argv[])
+int WinMain(int argc,char* argv[])
 {
 	if (!init()){
 		printf("Failed to initialize\n");
@@ -105,17 +104,30 @@ int main(int argc,char* argv[])
 		
 		else {
 			bool quit = false;
-			LTexture* gTexture;
 			SDL_Event e;
+			int w,h;
+			SDL_GetWindowSize(gWindow,&w,&h);
+			printf("%d %d\n",w,h);
 			while (!quit){
-				if (e.type == SDL_QUIT){
-					quit = true;
+				while (SDL_PollEvent(&e)){
+					if (e.type == SDL_QUIT){
+						quit = true;
+					}
+					// else if (e.type == SDL_MOUSEBUTTONDOWN){
+					// 	int x,y;
+					// 	SDL_GetMouseState(&x,&y);
+					// 	printf ("%d %d\n",x,y);
+					// }
 				}
-				gBackgroundTexture.render(gRenderer,0,0);
 
 				SDL_SetRenderDrawColor(gRenderer,0xFF,0xFF,0xFF,0xFF);
 				SDL_RenderClear(gRenderer);
 
+				gBackgroundTexture.render(gRenderer,0,0);
+				gTowerTexture.render(gRenderer,SCREEN_WIDTH / 2,SCREEN_HEIGHT / 2);
+				Enemy temp;
+				temp.render(0,0,0);
+				SDL_RenderPresent(gRenderer);
 			}
 		}
 	}

@@ -1,5 +1,5 @@
-#pragma once
-
+#ifndef TOWER_H
+#define TOWER_H
 #include <SDL2/SDL.h>
 #include "utils.h"
 #include "Enemy.h"
@@ -37,3 +37,4 @@ class Tower
         SDL_Point coordinates;
         LTexture* towerTexture;
 };
+#endif
