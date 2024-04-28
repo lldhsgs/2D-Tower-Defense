@@ -4,6 +4,8 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <stdio.h>
+#include <vector>
+#include "Constants.hpp"
 
 class Game{
 public:
@@ -23,7 +25,9 @@ public:
     
 private:
     int cnt = 0;
+    int money = 0;
     bool isRunning;
+    SDL_Point tileChosen = {0,0};    
     SDL_Window* window;
     
 };

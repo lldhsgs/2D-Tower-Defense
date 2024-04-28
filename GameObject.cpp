@@ -15,18 +15,60 @@ void GameObject::Update()
     xPos++;
     yPos++;
 
-    srcRect.h = 100;
-    srcRect.w = 100;
+ //   SDL_QueryTexture(objectTexture,NULL,NULL,&srcRect.w,&srcRect.h);
     srcRect.x = 0;
     srcRect.y = 0;
 
     destRect.x = xPos;
     destRect.y = yPos;
-    destRect.w = srcRect.w * 2;
-    destRect.h = srcRect.h * 2;
+    destRect.w = srcRect.w;
+    destRect.h = srcRect.h;
 }
 
 void GameObject::Render()
 {
+    SDL_QueryTexture(objectTexture,NULL,NULL,&srcRect.w,&srcRect.h);
+    srcRect.x = 0;
+    srcRect.y = 0;
+
+    destRect.x = xPos;
+    destRect.y = yPos;
+    destRect.w = srcRect.w;
+    destRect.h = srcRect.h;
     SDL_RenderCopy(Game::renderer,objectTexture,&srcRect,&destRect);
+}
+
+void GameObject::RenderCenter()
+{
+    SDL_QueryTexture(objectTexture,NULL,NULL,&srcRect.w,&srcRect.h);
+    srcRect.x = 0;
+    srcRect.y = 0;
+
+    destRect.x = xPos + (TILE_SIZE - srcRect.w) / 2;
+    destRect.y = yPos + (TILE_SIZE - srcRect.h) / 2;
+    destRect.w = srcRect.w;
+    destRect.h = srcRect.h;
+    SDL_RenderCopy(Game::renderer,objectTexture,&srcRect,&destRect);
+}
+
+void GameObject::Render(int w,int h)
+{
+    SDL_QueryTexture(objectTexture,NULL,NULL,&srcRect.w,&srcRect.h);
+    srcRect.x = 0;
+    srcRect.y = 0;
+
+    destRect.x = xPos;
+    destRect.y = yPos;
+    destRect.w = w;
+    destRect.h = h;
+    SDL_RenderCopy(Game::renderer,objectTexture,&srcRect,&destRect);
+}
+
+int GameObject::getX()
+{
+    return xPos;
+}
+int GameObject::getWidth()
+{
+    return srcRect.w;
 }

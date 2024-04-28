@@ -10,7 +10,12 @@ public:
 
     void Update();
     void Render();
-
+    int getX();
+    int getY();
+    int getWidth();
+    int getHeight();
+    void Render(int,int);
+    void RenderCenter();
 private:
     int xPos;
     int yPos;

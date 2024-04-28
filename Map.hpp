@@ -8,13 +8,14 @@ public:
     Map();
     ~Map();
 
-    void loadMap(int arr[10][18]);
+    void loadMap(int arr[NUMBER_OF_TILE_Y][NUMBER_OF_TILE_X]);
     void drawMap();
-
+    int getMapState(int,int);
+    int getDegreeBase(int,int,int,int);
 private:
     SDL_Rect srcRect,destRect;
     SDL_Texture *road;
     SDL_Texture *base;
-
-    int map[20][25];
+    SDL_Texture *portalEnd;
+    int map[NUMBER_OF_TILE_Y][NUMBER_OF_TILE_X];
 };
