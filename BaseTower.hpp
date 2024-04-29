@@ -3,14 +3,6 @@
 #include "Constants.hpp"
 #include "GameObject.hpp"
 
-enum
-{
-    Grey,
-    GreenN,
-    GreenS,
-    Blue,
-    Black
-};
 class BaseTower
 {
 public:
@@ -20,6 +12,7 @@ public:
     void Render();
     int getWidth();
 private:
+    int TowerType;
     int price;
     int attackSpeed;
     int range;

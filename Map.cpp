@@ -2,7 +2,8 @@
 #include "TextureManager.hpp"
 
 int dx[] = {0,1,1,1,0,-1,-1,-1};
-int dy[] = {-1,-1,0,1,1,1,0,-1};;
+int dy[] = {-1,-1,0,1,1,1,0,-1};
+
 int lvl1[10][18] = {
     {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,3},
     {0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,2,2},
@@ -13,7 +14,7 @@ int lvl1[10][18] = {
     {2,2,2,2,1,1,1,2,2,2,2,1,0,0,0,0,0,0},
     {1,1,1,1,1,0,0,1,1,1,1,0,0,0,0,0,0,0},
     {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
+    {0,0,0,0,0,0,0,Grey,Green,Blue,Black,0,0,0,0,0,0,0}
 };
 Map::Map()
 {
@@ -26,6 +27,12 @@ Map::Map()
     srcRect.w = destRect.w = TILE_SIZE;
     srcRect.h = destRect.h = TILE_SIZE;
     destRect.x = destRect.y = 0;
+    for(int i = 0;i < 10;++i){
+        for(int j = 0;j < 18;++j){
+            towers[i][j] = new BaseTower();
+            towers[i][j]->Place(0,SCREEN_WIDTH,SCREEN_HEIGHT);
+        }
+    }
 }
 
 void Map::loadMap(int arr[10][18])
@@ -69,13 +76,21 @@ int Map::getMapState(int row,int col)
     return map[row][col];
 }
 
-int Map::getDegreeBase(int row,int col,int aimRow,int aimCol)
+void Map::Update(int towerType,int row,int col)
 {
-    int degrees = 0;
-    for(int direction = 0;direction < 8;++direction){
-        if (aimRow - row == dy[direction] && aimCol - col == dx[direction]){
-            degrees =  45 * direction;
+    if (flag[row][col] == false){
+        towers[row][col]->Place(towerType,row,col);
+        flag[row][col] = true;
+    }
+    
+}
+void Map::Render()
+{
+    for(int i = 0;i < 10;++i){
+        for(int j = 0;j < 18;++j){
+            if (map[i][j] == 1){
+                towers[i][j]->Render();
+            }
         }
     }
-    return degrees;
 }

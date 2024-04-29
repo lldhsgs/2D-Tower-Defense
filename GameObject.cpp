@@ -48,6 +48,8 @@ void GameObject::RenderCenter()
     destRect.y = yPos + (TILE_SIZE - srcRect.h) / 2;
     destRect.w = srcRect.w;
     destRect.h = srcRect.h;
+    // printf("%x %x\n",this,Game::renderer);
+//    printf("%d %d %d %d\n",destRect.x,destRect.y,destRect.w,destRect.h);
     SDL_RenderCopy(Game::renderer,objectTexture,&srcRect,&destRect);
 }
 

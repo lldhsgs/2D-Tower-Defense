@@ -5,12 +5,14 @@
 #include "BaseTower.hpp"
 GameObject *enemy[15],*portal;
 GameObject *background;
+GameObject *menu;
 SDL_Renderer* Game::renderer = nullptr;
 Map* map;
-
+// BaseTower *baseTower;
 Game::Game(){}
 
 Game::~Game(){}
+int mouseX,mouseY;
 
 void Game::init(const char* title,int xPos,int yPos,int width,int height,bool fullScreen)
 {
@@ -43,8 +45,10 @@ void Game::init(const char* title,int xPos,int yPos,int width,int height,bool fu
     portal = new GameObject("Picture/portal_end.png",50,50);
     background = new GameObject("Picture/background.png",0,0);
     map = new Map();
+    menu = new GameObject("Picture/weapon_menu.png",700,900);
+
+
 }
-BaseTower *baseTower = new BaseTower();
 // std::vector<BaseTower*> baseTowers;
 void Game::handleEvents()
 {
@@ -54,35 +58,18 @@ void Game::handleEvents()
             case SDL_QUIT:
                 isRunning = false;
                 break;
-            case SDL_MOUSEBUTTONDOWN:
-                SDL_GetMouseState(&tileChosen.x,&tileChosen.y);
-                tileChosen.x /= TILE_SIZE;
-                tileChosen.y /= TILE_SIZE;
-                printf("%d %d\n",tileChosen.x,tileChosen.y);
-                break;
-            case SDL_KEYDOWN:
-                if (map->getMapState(tileChosen.y,tileChosen.x) == 1){
-                    switch (event.key.keysym.sym){
-                        case SDLK_1:
-                            baseTower->Place(Grey,tileChosen.x,tileChosen.y);
-                            break;
-                        case SDLK_2:
-                            baseTower->Place(GreenN,tileChosen.x,tileChosen.y);
-                            break;
-                        case SDLK_3:
-                            baseTower->Place(GreenS,tileChosen.x,tileChosen.y);
-                            break;
-                        case SDLK_4:
-                            baseTower->Place(Blue,tileChosen.x,tileChosen.y);
-                            break;
-                        case SDLK_5:
-                            baseTower->Place(Black,tileChosen.x,tileChosen.y);
-                            break;
-                        default:
-                            break;
-                    }
-                    printf("%d\n",baseTower->getWidth());
- //                   baseTower->Render();
+            case SDL_MOUSEBUTTONDOWN:                
+                SDL_GetMouseState(&mouseX,&mouseY);
+                mouseX /= TILE_SIZE;
+                mouseY /= TILE_SIZE;
+//                printf("%d %d\n",tileChosen.x,tileChosen.y);
+                if (map->getMapState(mouseY,mouseX) == 1){
+                    tileChosen.x = mouseX;
+                    tileChosen.y = mouseY;
+                }
+                else if (map->getMapState(mouseY,mouseX)  > ColorNumber){
+                    int towerType = map->getMapState(mouseY,mouseX) - ColorNumber - 1;
+                    map->Update(towerType,tileChosen.y,tileChosen.x);
                 }
                 break;
             default:  
@@ -102,12 +89,14 @@ void Game::update()
 void Game::render()
 {
     SDL_RenderClear(renderer);
+    
     background->Render(SCREEN_WIDTH,SCREEN_HEIGHT);
     map->drawMap();
+    menu->Render();
     for(int i = 0;i < 6;++i)
     enemy[i]->Render();
     portal->Render();
- //   baseTower->Render();
+    map->Render();
     SDL_RenderPresent(renderer);
 }
 
