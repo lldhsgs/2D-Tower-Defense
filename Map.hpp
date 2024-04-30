@@ -13,7 +13,7 @@ public:
     void drawMap();
     int getMapState(int,int);
     void Render();
-    void Update(int,int,int);
+    bool Update(int,int,int);
 private:
     SDL_Rect srcRect,destRect;
     SDL_Texture *road;

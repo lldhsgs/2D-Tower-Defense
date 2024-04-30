@@ -17,5 +17,19 @@ const int Blue = 102;
 const int Black = 103;
 const int ColorNumber = 99;
 
+const int BASE = 1;
+const int ROAD = 2;
+enum 
+{
+    Small,
+    Medium,
+    Large
+};
+
+const int cost[] = {50,100,150,200};
+
+const int dx[] = {0,1,1,1,0,-1,-1,-1};
+const int dy[] = {-1,-1,0,1,1,1,0,-1};
+
 #endif
 

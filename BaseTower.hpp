@@ -16,5 +16,5 @@ private:
     int price;
     int attackSpeed;
     int range;
-    GameObject* Tower;
+    GameObject *Tower;
 }; 

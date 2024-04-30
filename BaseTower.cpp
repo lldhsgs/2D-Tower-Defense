@@ -21,11 +21,6 @@ void BaseTower::Place(int towerType,int tileX,int tileY)
     TowerType = towerType;
     tileX *= 100;
     tileY *= 100;
-//    printf("%d %d\n",tileX,tileY);
-    // printf("%d\n",towerType);
-    // std::cout << cannons[towerType].c_str() << "\n";
-    // const char* tex = cannons[towerType].c_str();
-    // printf("%s\n",tex);
     GameObject* temp = new GameObject(cannons[TowerType].c_str(),tileY,tileX);
     Tower = temp;
 }
@@ -35,10 +30,10 @@ void BaseTower::Render()
 //    printf("%d\n",Tower->getX());
     Tower->RenderCenter();
 }
-int BaseTower::getWidth()
-{
-    return Tower->getWidth();
-}
+// int BaseTower::getWidth()
+// {
+//     return Tower->getWidth();
+// }
 void BaseTower::Attack()
 {
 }

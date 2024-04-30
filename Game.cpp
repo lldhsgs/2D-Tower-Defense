@@ -3,11 +3,15 @@
 #include "GameObject.hpp"
 #include "Map.hpp"
 #include "BaseTower.hpp"
-GameObject *enemy[15],*portal;
+#include "Enemy.hpp"
+
 GameObject *background;
-GameObject *menu;
+GameObject *weaponMenu;
 SDL_Renderer* Game::renderer = nullptr;
 Map* map;
+Enemy* enemy;
+SDL_Point curPos,tmp;
+
 // BaseTower *baseTower;
 Game::Game(){}
 
@@ -40,13 +44,10 @@ void Game::init(const char* title,int xPos,int yPos,int width,int height,bool fu
     else {
         isRunning = false;
     }
-    for(int i = 0;i < 6;++i)
-    enemy[i] = new GameObject("Picture/red_enemy.png",0,i * TILE_SIZE);
-    portal = new GameObject("Picture/portal_end.png",50,50);
     background = new GameObject("Picture/background.png",0,0);
     map = new Map();
-    menu = new GameObject("Picture/weapon_menu.png",700,900);
-
+    weaponMenu = new GameObject("Picture/weapon_menu.png",700,900);
+    enemy = new Enemy(1);
 
 }
 // std::vector<BaseTower*> baseTowers;
@@ -63,13 +64,16 @@ void Game::handleEvents()
                 mouseX /= TILE_SIZE;
                 mouseY /= TILE_SIZE;
 //                printf("%d %d\n",tileChosen.x,tileChosen.y);
-                if (map->getMapState(mouseY,mouseX) == 1){
+                if (map->getMapState(mouseY,mouseX) == BASE){
                     tileChosen.x = mouseX;
                     tileChosen.y = mouseY;
                 }
                 else if (map->getMapState(mouseY,mouseX)  > ColorNumber){
                     int towerType = map->getMapState(mouseY,mouseX) - ColorNumber - 1;
-                    map->Update(towerType,tileChosen.y,tileChosen.x);
+                    if (money - cost[towerType] >= 0 && map->Update(towerType,tileChosen.y,tileChosen.x)) {
+                        money -= cost[towerType];
+                        printf("Money left: %d\n",money);
+                    }
                 }
                 break;
             default:  
@@ -81,9 +85,24 @@ void Game::handleEvents()
 
 void Game::update()
 {
-    for(int i = 0;i < 6;++i)
-    enemy[i]->Update();
-    portal->Update();
+//    printf("%d %d %d %d\n",enemy->getCurrentTile().x,enemy->getCurrentTile().y,curPos.x,curPos.y);
+    tmp = enemy->getCurrentTile();
+    if (tmp.x != curPos.x || tmp.y != curPos.y){
+        printf("%d %d %d %d\n",tmp.x,tmp.y,curPos.x,curPos.y);
+        for(int direction = 0;direction < 8;direction += 2){
+        if (map->getMapState(tmp.y + dy[direction],tmp.x + dx[direction]) == ROAD){
+        //    printf("%d %d %d\n",map->getMapState(curPos.y + dy[direction],curPos.x + dx[direction]),curPos.y + dy[direction],curPos.x + dx[direction]);
+            if (tmp.x + dx[direction] != curPos.x || tmp.y + dy[direction] != curPos.y){
+ //               printf("%d %d\n",enemy->getDirection(),direction);
+                enemy->setDirection(direction);
+                break;
+            }
+        }
+    }
+        curPos = tmp;
+    }
+    enemy->Move();
+    
 }
 
 void Game::render()
@@ -92,11 +111,9 @@ void Game::render()
     
     background->Render(SCREEN_WIDTH,SCREEN_HEIGHT);
     map->drawMap();
-    menu->Render();
-    for(int i = 0;i < 6;++i)
-    enemy[i]->Render();
-    portal->Render();
+    weaponMenu->Render();
     map->Render();
+    enemy->Render();
     SDL_RenderPresent(renderer);
 }
 
@@ -110,4 +127,8 @@ void Game::clean()
 bool Game::running()
 {
     return isRunning;
+}
+int Game::getMoney()
+{
+    return money;
 }

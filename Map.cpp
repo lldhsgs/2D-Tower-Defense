@@ -1,9 +1,6 @@
 #include "Map.hpp"
 #include "TextureManager.hpp"
 
-int dx[] = {0,1,1,1,0,-1,-1,-1};
-int dy[] = {-1,-1,0,1,1,1,0,-1};
-
 int lvl1[10][18] = {
     {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,3},
     {0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,2,2},
@@ -76,13 +73,14 @@ int Map::getMapState(int row,int col)
     return map[row][col];
 }
 
-void Map::Update(int towerType,int row,int col)
+bool Map::Update(int towerType,int row,int col)
 {
     if (flag[row][col] == false){
         towers[row][col]->Place(towerType,row,col);
         flag[row][col] = true;
+        return true;
     }
-    
+    return false;
 }
 void Map::Render()
 {

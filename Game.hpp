@@ -3,6 +3,7 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <SDL2/SDL_ttf.h>
 #include <stdio.h>
 #include <vector>
 #include "Constants.hpp"
@@ -18,14 +19,13 @@ public:
     void update();
     void render();
     void clean();
-
     bool running();
-    
     static SDL_Renderer* renderer;
-    
+    int getMoney();
 private:
     int cnt = 0;
-    int money = 0;
+    int money = 500;
+    int Lives = 5;
     bool isRunning;
     SDL_Point tileChosen = {0,0};    
     SDL_Window* window;
