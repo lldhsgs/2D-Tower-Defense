@@ -2,37 +2,20 @@
 #define ENEMY_H
 
 #include "utils.h"
+#include "Renderable.h"
+#include "BaseEnemy.h"
 // #include <SDL2/SDL.h>
 // #include <stdio.h>
 // #include <string>
 // #include <vector>
 
-#define TILE_SIZE 100
 
-enum
-{
-    Green,
-    Yellow,
-    Red
-};
 
-class Enemy
+
+class Enemy : public BaseEnemy
 {
     public:
-        
-        Enemy();
-        void move();
-        bool checkCollision();
-        void takeDamage();
-        void render(int x,int y,int ID);
-
+    Enemy(int enemyType);
     private:
-        int enemyType; // ID
-        int velocity;
-        int damage;
-        int HP;
-        int armor;
-
-        LTexture enemyTexture;
 };
 #endif

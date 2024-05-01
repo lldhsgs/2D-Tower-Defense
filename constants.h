@@ -3,8 +3,10 @@
 
 #include <SDL2/SDL.h>
 
-const static int SCREEN_WIDTH = 1000;
-const static int SCREEN_HEIGHT = 600;
+const static int SCREEN_WIDTH = 1200;
+const static int SCREEN_HEIGHT = 800;
+const static int TOTAL_TILE_X = 12;
+const static int TOTAL_TILE_Y = 8;
 const static int SCREEN_DIAGONAL = 2204;
 
 const int SCREEN_FPS = 60;

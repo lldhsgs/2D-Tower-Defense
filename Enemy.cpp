@@ -3,31 +3,30 @@
 #include "Enemy.h"
 #include <stdio.h>
 
-Enemy::Enemy()
+Enemy::Enemy(int enemyType)
 {
-    enemyType = 0;
-    velocity = 0;
-    damage = 0;
-    HP = 0;
-    armor = 0;
-}
-
-void Enemy::render(int x,int y,int ID)
-{
-    switch(ID){
+    switch (enemyType){
         case Green:
-            if (!enemyTexture.loadFromFile(gRenderer,"Picture/green_enemy.png")){
+            Enemy::BaseEnemy(1,5,0,5,0);
+            if (!Enemy::load("Picture/green_enemy.png")){
                 printf("Failed to load green enemy\n");
             }
+            break;
         case Yellow:
-            if (!enemyTexture.loadFromFile(gRenderer,"Picture/yellow_enemy.png")){
+            Enemy::BaseEnemy(2,7,0,7,0);
+            if (!Enemy::load("Picture/yellow_enemy.png")){
                 printf("Failed to load yellow enemy\n");
             }
+            break;
         case Red:
-            if (!enemyTexture.loadFromFile(gRenderer,"Picture/red_enemy.png")){
+            Enemy::BaseEnemy(3,10,0,7,0);
+            if (!Enemy::load("Picture/red_enemy.png")){
                 printf("Failed to load red enemy\n");
             }
-        enemyTexture.render(gRenderer,x,y);
+            break;
     }
 }
+
+
+
 #endif

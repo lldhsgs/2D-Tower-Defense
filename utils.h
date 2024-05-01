@@ -6,9 +6,10 @@
 #include <SDL2/SDL_ttf.h>
 #include <string>
 #include <vector>
+#include <utility>
 
-SDL_Window *gWindow;
-SDL_Renderer *gRenderer;
+SDL_Window *gWindow = NULL;
+SDL_Renderer *gRenderer = NULL;
 class LTexture
 {
 	public:
@@ -19,11 +20,11 @@ class LTexture
 		~LTexture();
 
 		//Loads image at specified path
-		bool loadFromFile(SDL_Renderer* gRenderer, std::string path );
+		bool loadFromFile( std::string path );
 		
 		#if defined(SDL_TTF_MAJOR_VERSION)
 		//Creates image from font string
-		bool loadFromRenderedText(SDL_Renderer* gRenderer,TTF_Font *gFont,std::string textureText, SDL_Color textColor );
+		bool loadFromRenderedText(TTF_Font *gFont,std::string textureText, SDL_Color textColor );
 		#endif
 		
 		//Deallocates texture
@@ -39,7 +40,7 @@ class LTexture
 		void setAlpha( Uint8 alpha );
 		
 		//Renders texture at given point
-		void render(SDL_Renderer* gRenderer, int x, int y, SDL_Rect* clip = NULL, double angle = 0.0, SDL_Point* center = NULL, SDL_RendererFlip flip = SDL_FLIP_NONE );
+		void render(int x, int y, SDL_Rect* clip = NULL, double angle = 0.0, SDL_Point* center = NULL, SDL_RendererFlip flip = SDL_FLIP_NONE );
 
 		//Gets image dimensions
 		int getWidth();
@@ -93,4 +94,9 @@ class LTimer
 		bool mPaused;
 		bool mStarted;
 };
+
+bool init();
+bool loadMedia(LTexture,std::string);
+void close();
+void runSDL();
 #endif
