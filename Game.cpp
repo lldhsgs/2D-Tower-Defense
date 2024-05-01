@@ -31,6 +31,7 @@ BaseTower* towerNow;
 std::string Convert(int x)
 {
     std::string res = "";
+    if (x == 0) return "0";
     while (x){
         res.push_back(char((x % 10) + '0'));
         x /= 10;
@@ -53,20 +54,20 @@ void Game::init(const char* title,int xPos,int yPos,int width,int height,bool fu
         flags = SDL_WINDOW_FULLSCREEN;
     }
     if (SDL_Init(SDL_INIT_EVERYTHING) == 0){
-        printf("Subsystem initialized!\n");
+        // printf("Subsystem initialized!\n");
 
         window = SDL_CreateWindow(title,xPos,yPos,width,height,flags);
         if (window){
-            printf("Window initialized\n");
+            // printf("Window initialized\n");
         }
 
         renderer = SDL_CreateRenderer(window,-1,0);
         if (renderer){
             SDL_SetRenderDrawColor(renderer,0xFF,0xFF,0xFF,0xFF);
-            printf("Renderer initialized\n");
+            // printf("Renderer initialized\n");
         }
         if (TTF_Init() == 0){
-            printf("TTF initialized!\n");
+            // printf("TTF initialized!\n");
         }
         isRunning = true;
     }
@@ -154,7 +155,6 @@ void Game::handleEvents()
                     if (money - cost[towerType] >= 0 && map->Update(towerType,tileChosen.y,tileChosen.x)) {
                         towers.push_back({tileChosen.x,tileChosen.y});
                         money -= cost[towerType];
-                        printf("Money left: %d\n",money);
                     }
                 }
                 break;
@@ -289,7 +289,7 @@ void Game::clean()
     SDL_DestroyRenderer(renderer);
     SDL_Quit();
     TTF_CloseFont(gFont);
-    printf("Game cleaned\n");
+    // printf("Game cleaned\n");
 }
 bool Game::running()
 {

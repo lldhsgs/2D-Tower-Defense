@@ -17,9 +17,6 @@ void TextureManager::draw(SDL_Texture *tex,SDL_Rect srcRect,SDL_Rect destRect)
 SDL_Texture* TextureManager::loadTexturefromText(std::string textureText,SDL_Color textColor)
 {
     SDL_Surface* textSurface = TTF_RenderText_Solid(Game::gFont,textureText.c_str(),textColor);
-    if (textSurface == NULL){
-        printf ("cac\n");
-    }
     SDL_Texture* tex = SDL_CreateTextureFromSurface(Game::renderer,textSurface);
     SDL_FreeSurface(textSurface);
 
