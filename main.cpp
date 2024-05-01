@@ -3,7 +3,7 @@
 Game* game = nullptr;
 int main(int argc,char* argv[])
 {
-    const int FPS = 60;
+    // const int FPS = 150;
     const int frameDelay = 1000 / FPS;
 
     Uint32 frameStart;
@@ -16,11 +16,21 @@ int main(int argc,char* argv[])
     while (game->running()){
         frameStart = SDL_GetTicks();
 
+        if (game->checkEndRound()){
+            if (game->checkVictory()){
+                printf("You win!\n");
+            }
+            else if (game->checkDefeat()){
+                printf("You lose\n");
+            }
+            else game->newRound();
+        }
 
         game->handleEvents();
         game->update();
         game->render();
 
+        
         frameTime = SDL_GetTicks() - frameStart;
 
         if (frameDelay > frameTime){

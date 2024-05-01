@@ -7,9 +7,11 @@ std::string cannons[] = {"Picture/grey_cannon.png","Picture/green_cannon.png","P
 BaseTower::BaseTower()
 {
     range = 0;
-    attackSpeed = 0;
+    DelayBetweenAttack = 0;
+    timer = 0;
     price = 0;
     Tower = nullptr;
+    bullet = nullptr;
 }
 
 void BaseTower::Place(int towerType,int tileX,int tileY)
@@ -23,6 +25,28 @@ void BaseTower::Place(int towerType,int tileX,int tileY)
     tileY *= 100;
     GameObject* temp = new GameObject(cannons[TowerType].c_str(),tileY,tileX);
     Tower = temp;
+    switch (towerType + 100){
+        case Grey:
+            bullet = new Bullet(NORMAL_BULLET,tileY + TILE_SIZE/2,tileX + TILE_SIZE/2);
+            DelayBetweenAttack = FPS;
+            // printf("%d\n",bullet->getType());
+            break;
+        case Green:
+            bullet = new Bullet(POISON_BULLET,tileY + TILE_SIZE/2,tileX + TILE_SIZE/2);
+            DelayBetweenAttack = FPS/2;
+            break;
+        case Blue:
+            bullet = new Bullet(LASER_BULLET,tileY + TILE_SIZE/2,tileX + TILE_SIZE/2);
+            DelayBetweenAttack = FPS*2;
+            break;
+        case Black:
+            bullet = new Bullet(NORMAL_BULLET,tileY + TILE_SIZE/2,tileX + TILE_SIZE/2);
+            DelayBetweenAttack = FPS/5;
+            break;
+    }
+    timer = DelayBetweenAttack;
+    Delayed = false;
+    // printf("%d %d\n",towerType,bullet->getType());
 }
 
 void BaseTower::Render()
@@ -34,6 +58,42 @@ void BaseTower::Render()
 // {
 //     return Tower->getWidth();
 // }
-void BaseTower::Attack()
+void BaseTower::updateTimer()
 {
+    if (Delayed){
+        ++timer;
+        if (timer >= DelayBetweenAttack){
+            Delayed = false;
+            timer = 0;
+        }
+    }
+    
+}
+void BaseTower::Attack(int direction,Enemy* enemy)
+{
+    if (bullet->isCollided()){ // the previous bullet already hit
+        Delayed = true;
+        Recharge();
+    }
+    if (Delayed) return;
+        bullet->setDirection(direction);
+        bullet->Move();
+        bullet->Render();
+        bullet->Collide(enemy); 
+}
+
+void BaseTower::Recharge()
+{
+    bullet->setX(Tower->getX());
+    bullet->setY(Tower->getY());
+    bullet->setCollision();
+}
+
+Bullet* BaseTower::getBullet()
+{
+    return bullet;
+}
+bool BaseTower::getDelayed()
+{
+    return Delayed;
 }

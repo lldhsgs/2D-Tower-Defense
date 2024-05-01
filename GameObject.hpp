@@ -6,6 +6,7 @@ class GameObject
 {
 public:
     GameObject(const char*,int,int);
+    void loadText(std::string,SDL_Color,int,int);
     ~GameObject();
     void Update();
     void Render();

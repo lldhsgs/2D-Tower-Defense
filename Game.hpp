@@ -6,8 +6,11 @@
 #include <SDL2/SDL_ttf.h>
 #include <stdio.h>
 #include <vector>
+#include <string>
+#include <algorithm>
 #include "Constants.hpp"
 
+std::string Convert(int x);
 class Game{
 public:
     Game();
@@ -21,12 +24,18 @@ public:
     void clean();
     bool running();
     static SDL_Renderer* renderer;
+    static TTF_Font* gFont;
     int getMoney();
+    void newRound();
+    bool checkEndRound();
+    bool checkVictory();
+    bool checkDefeat();
 private:
     int cnt = 0;
-    int money = 500;
+    int money = 200;
     int Lives = 5;
     bool isRunning;
+    bool endRound = false;
     SDL_Point tileChosen = {0,0};    
     SDL_Window* window;
     

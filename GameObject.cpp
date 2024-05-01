@@ -10,6 +10,13 @@ GameObject::GameObject(const char* textureSheet,int x,int y)
     yPos = y;
 }
 
+void GameObject::loadText(std::string text,SDL_Color textColor,int x,int y)
+{
+    objectTexture = TextureManager::loadTexturefromText(text,textColor);
+    xPos = x;
+    yPos = y;
+}
+
 GameObject::~GameObject()
 {
     free();
