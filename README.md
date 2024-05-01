@@ -20,7 +20,7 @@ Game được cấu thành từ engine của SDL2, dựa trên các thư viện 
 Mục tiêu của Game: Tiêu diệt tất cả các kẻ địch trước khi chúng vào được cổng không gian và gây tai họa cho các vũ trụ khác.
 
 Các đối tượng trong game
-- Đường đi của kẻ địch được đánh dấu bởi các ô vuông ![image](Picture/road_square.png).
+- Đường đi của kẻ địch được đánh dấu bởi các ô vuông ![image](Picture/path_square.png).
 - Các ô vuông bao quanh đường đi, là các địa điểm mà người chơi có thể đặt các trụ để tiêu diệt kẻ địch được đánh dấu bởi các ô vuông ![image](Picture/base_square.png)
 - Cổng kết thúc ![image](Picture/portal_end.png), kẻ địch nếu đi đến được cổng này sẽ gây mất đi một số mạng.
 - Số mạng còn lại, tối đa là 5, biểu diễn qua số ![image](Picture/lives.png) ở góc trên cùng màn hình.
@@ -29,8 +29,8 @@ Các đối tượng trong game
 - Các trụ có thể đặt, bao gồm:
     + Trụ xám ![image](Picture/grey_cannon.png) có giá 50 vàng, tốc độ đánh 2 đòn/giây, sử dụng loại đạn thường ![image](Picture/normal_bullet.png) gây 1 sát thương mỗi viên.
     + Trụ xanh lá ![image](Picture/green_cannon.png) có giá 100 vàng, tốc độ đánh 2 đòn / giây, sử dụng loại đạn xanh lá ![image](Picture/green_bullet.png), gây 2 sát thương mỗi viên.
-    + Trụ xanh dương ![image](Picture/blue_cannon) có giá 150 vàng, tốc độ đánh 0.5 đòn / giây, sử dụng loại đạn xanh dương ![image](Picture/blue_bullet.png), gây 5 sát thương mỗi viên.
-    + Trụ đen ![image](Picture/blue_cannon) có giá 200 vàng, tốc độ đánh 5 đòn / giây, sử dụng loại đạn thường ![image](Picture/normal_bullet.png), gây 1 sát thương mỗi viên.
+    + Trụ xanh dương ![image](Picture/blue_cannon.png) có giá 150 vàng, tốc độ đánh 0.5 đòn / giây, sử dụng loại đạn xanh dương ![image](Picture/blue_bullet.png), gây 5 sát thương mỗi viên.
+    + Trụ đen ![image](Picture/black_cannon.png) có giá 200 vàng, tốc độ đánh 5 đòn / giây, sử dụng loại đạn thường ![image](Picture/normal_bullet.png), gây 1 sát thương mỗi viên.
 - Các loại kẻ địch bao gồm:
     + Kẻ địch xanh lá ![image](Picture/green_enemy.png), có 3 máu, gây 1 sát thương nếu đến được cổng kết thúc, có giá 20 vàng nếu bị hạ gục.
     + Kẻ địch vàng ![image](Picture/yellow_enemy.png),có 5 máu, gây 2 sát thương nếu đến được cổng kết thúc, có giá 40 vàng nếu bị hạ gục.
@@ -59,6 +59,7 @@ Game vẫn tồn tại nhiều điểm có thể cải thiện được trong t�
 - Sửa lại việc hiển thị đường đạn, đôi khi đạn bay quá nhanh không hiển thị kịp, đôi khi đạn lại bay loạn lên.
 - UI còn khó hiểu, cần có thêm phần hiển thị giá tiền của trụ, máu của kẻ địch cho game dễ hiểu hơn.
 - Còn xảy ra lag, tụt FPS.
+- Chưa có nhiều hiệu ứng âm thanh.
 
 Do trình độ lập trình Game còn hạn chế và thiếu kinh nghiệm cũng như thử nghiệm, phiên bản game 2D Tower Defense này còn nhiều tồn tại cần được khắc phục, ngoài ra cũng chưa được thử nghiệm trên các môi trường khác nhau ở các hệ điều hành khác nhau. Mong mọi người thông cảm!
 

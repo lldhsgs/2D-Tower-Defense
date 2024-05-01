@@ -3,7 +3,7 @@
 #include "BaseTower.hpp"
 #include <string>
 #include <iostream>
-std::string cannons[] = {"Picture/grey_cannon.png","Picture/green_cannon.png","Picture/laser_cannon.png","Picture/black_cannon.png"};
+std::string cannons[] = {"Picture/grey_cannon.png","Picture/green_cannon.png","Picture/blue_cannon.png","Picture/black_cannon.png"};
 BaseTower::BaseTower()
 {
     range = 0;
