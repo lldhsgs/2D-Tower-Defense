@@ -27,7 +27,7 @@ Các đối tượng trong game
 - Số vàng còn lại để đặt trụ, biểu diễn qua ![image](Picture/MoneyDisplay.png) ở góc trái trên màn hình.
 - Menu các trụ ![image](Picture/weapon_menu.png).
 - Các trụ có thể đặt, bao gồm:
-    + Trụ xám ![image](Picture/grey_cannon.png) có giá 50 vàng, tốc độ đánh 2 đòn/giây, sử dụng loại đạn thường ![image](Picture/normal_bullet.png) gây 1 sát thương mỗi viên.
+    + Trụ xám ![image](Picture/grey_cannon.png) có giá 50 vàng, tốc độ đánh 1 đòn/giây, sử dụng loại đạn thường ![image](Picture/normal_bullet.png) gây 1 sát thương mỗi viên.
     + Trụ xanh lá ![image](Picture/green_cannon.png) có giá 100 vàng, tốc độ đánh 2 đòn / giây, sử dụng loại đạn xanh lá ![image](Picture/green_bullet.png), gây 2 sát thương mỗi viên.
     + Trụ xanh dương ![image](Picture/blue_cannon.png) có giá 150 vàng, tốc độ đánh 0.5 đòn / giây, sử dụng loại đạn xanh dương ![image](Picture/blue_bullet.png), gây 5 sát thương mỗi viên.
     + Trụ đen ![image](Picture/black_cannon.png) có giá 200 vàng, tốc độ đánh 5 đòn / giây, sử dụng loại đạn thường ![image](Picture/normal_bullet.png), gây 1 sát thương mỗi viên.
