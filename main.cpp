@@ -1,51 +1,43 @@
-#include "constants.h"
-#include "Enemy.h"
-#include "utils.h"
+#include "Game.hpp"
 
-
-
+Game* game = nullptr;
 int main(int argc,char* argv[])
 {
-	if (!init()){
-		printf("Failed to initialize\n");
-	}
-	else{
-			bool quit = false;
-			SDL_Event e;
-			Enemy temp(Red);
-			LTexture texture;
-			int X,Y;
-			int velocityX = 10,velocityY = 10;
-			printf("%d\n",temp.getWidth());
-			if (!texture.loadFromFile("Picture/red_enemy.png")){
-				printf("Failed to load texture from file!\n");
-			}
-			else {
-				while (!quit){
-						while (SDL_PollEvent(&e) != 0){
-						if (e.type == SDL_QUIT){
-							quit = true;
-						}
-					}
-					runSDL();
-					X = texture.getX() + velocityX;
-					Y = texture.getY() + velocityY;
-					if (X + texture.getWidth() > SCREEN_WIDTH || X < 0){
-						X -= velocityX;
-						velocityX *= -1;
-					} 
-					if (Y + texture.getHeight() > SCREEN_HEIGHT || Y < 0){
-						Y -= velocityY;
-						velocityY *= -1;
-					}
-					texture.setPosition(X,Y);
-					// texture.render(texture.getX(),texture.getY());
-					// temp.render();
-				}
-			}
-			
-		}
+    // const int FPS = 150;
+    const int frameDelay = 1000 / FPS;
 
-	close();
-	return 0;
+    Uint32 frameStart;
+    int frameTime;
+
+    game = new Game();
+
+    game->init("Tower Defense 2D",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,1800,1000,false);
+
+    while (game->running()){
+        frameStart = SDL_GetTicks();
+
+        if (game->checkEndRound()){
+            if (game->checkVictory()){
+                printf("You win!\n");
+            }
+            else if (game->checkDefeat()){
+                printf("You lose\n");
+            }
+            else game->newRound();
+        }
+
+        game->handleEvents();
+        game->update();
+        game->render();
+
+        
+        frameTime = SDL_GetTicks() - frameStart;
+
+        if (frameDelay > frameTime){
+            SDL_Delay(frameDelay - frameTime);
+        }
+    }
+    game->clean();
+
+    return 0;
 }

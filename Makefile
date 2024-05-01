@@ -11,7 +11,7 @@ LIBRARY_PATH = -Llib
 LINKER_FLAGS = -lSDl2main -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf
 
 # Compiler flag?
-COMPILER_FLAGS = -lmingw32
+COMPILER_FLAGS = -lmingw32 -g
 
 SRCS := $(wildcard *.cpp)
 OBJS := $(patsubst %.cpp,%,$(SRCS))
