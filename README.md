@@ -44,7 +44,7 @@ Các đối tượng trong game
 ## Game Screenshots
 
 Một screenshots trong lúc game chạy: 
-![image](Picture/Game_Overview.png)
+![image](Picture/game_overview.png)
 
 Screenshot khi chiến thắng: 
 ![image](Picture/Victory_Screenshot.png)

@@ -60,8 +60,10 @@ void Game::init(const char* title,int xPos,int yPos,int width,int height,bool fu
         if (window){
             // printf("Window initialized\n");
         }
-
+        int w,h;
         renderer = SDL_CreateRenderer(window,-1,0);
+        SDL_GetRendererOutputSize(renderer,&w,&h);
+        printf("%d %d\n",w,h);
         if (renderer){
             SDL_SetRenderDrawColor(renderer,0xFF,0xFF,0xFF,0xFF);
             // printf("Renderer initialized\n");

@@ -11,7 +11,7 @@ int main(int argc,char* argv[])
 
     game = new Game();
 
-    game->init("Tower Defense 2D",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,1800,1000,false);
+    game->init("Tower Defense 2D",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,SCREEN_WIDTH,SCREEN_HEIGHT,false);
 
     while (game->running()){
         frameStart = SDL_GetTicks();
